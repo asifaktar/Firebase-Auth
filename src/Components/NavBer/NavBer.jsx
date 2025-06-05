@@ -20,6 +20,11 @@ const NavBer = () => {
         <NavLink to ="/">Home</NavLink>
         <NavLink to ="/Login">Login</NavLink>
         <NavLink to ="/Register">Register</NavLink>
+        {
+            user && <>
+                <NavLink to="/Oder">Oder</NavLink>
+            </>
+        }
     </>
     return (
         <>
