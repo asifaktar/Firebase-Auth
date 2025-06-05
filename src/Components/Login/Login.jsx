@@ -1,15 +1,17 @@
 
 import { useContext } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 
 const Login = () => {
 
-    const {loginUser} = useContext(AuthContext);
+    const {loginUser, signInGoogle} = useContext(AuthContext);
     
+    const navigate = useNavigate();
 
     const handelSubmitLogin = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        e.target.reset();
         console.log("button was click..");
         const email = e.target.email.value;
         const password = e.target.password.value;
@@ -19,9 +21,21 @@ const Login = () => {
         loginUser(email, password)
         .then(result =>{
             console.log(result.user)
+            navigate("/")
         })
         .catch(error =>{
             console.log(error.message)
+        })
+    }
+
+    const handelGoogle = ()=>{
+        signInGoogle()
+        .then(result =>{
+            console.log(result)
+            navigate("/")
+        })
+        .catch(error =>{
+            console.log(error)
         })
     }
     return (
@@ -41,6 +55,9 @@ const Login = () => {
                                 </fieldset>
                             </form>
                             <p>New to website? please <Link className='link-hover' to="/Register">Register</Link></p>
+                            <div>
+                                <button onClick={handelGoogle} className='btn btn-ghost'>SignIn Google</button>
+                            </div>
                         </div>
                     </div>
                 </div>
